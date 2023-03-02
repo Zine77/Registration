@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<base target="_top">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: "Open Sans";
+			color: #000;
+		}
+
+		section {
+      background: url("https://drive.google.com/uc?export=view&id=1rDectTYTyzKlDJuZMsD4fwdjU6uCkjpm");
+			height: 120vh;
+			width: 120%;
+			background-size: cover;
+			background-position: center center;
+		}
+
+		.form-container {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 380px;
+			padding: 30px 30px;
+			border-radius: 10px;
+			box-shadow: 7px 7px 60px #000;
+		}
+
+			h1 {
+			text-align: right;
+			margin-bottom: 1rem;
+		}
+
+    h2 {
+			color: #000;
+			font-size: 1.3em;
+			text-transform: uppercase;
+			text-align: center;
+			margin-bottom: 2rem;
+		}
+
+		.control input {
+			font-size: 16px;
+			display: block;
+			width: 100%;
+			color: #000;
+			background: #ddd;
+			outline: none;
+			border: none;
+			margin: 1em 0;
+			border-radius: 30px;
+			padding: 15px;
+		}
+    
+    .custom-select {
+      position: relative;
+      font-family: "Open Sans";
+      font-size: 16px;
+    }
+
+    .custom-select select {
+      display: none; /*hide original SELECT element:*/
+    }
+
+    .select-selected {
+      background-color: #ddd;
+      padding: 15px;
+      width: 100%;
+    }
+
+    /*style the arrow inside the select element:*/
+    .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 55px;
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #fff transparent transparent transparent;
+    }
+
+    /*point the arrow upwards when the select box is open (active):*/
+    .select-selected.select-arrow-active:after {
+      border-color: transparent transparent #fff transparent;
+      top: 47px;
+    }
+
+    /*style the items (options), including the selected item:*/
+    .select-items div,.select-selected {
+      color: #333333;
+      padding: 8px 16px;
+      outline: none;
+	    border: none;
+      //border: 1px solid transparent;
+      //border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+      cursor: pointer;
+      user-select: none;
+      border-radius: 30px;
+    }
+
+    /*style items (options):*/
+    .select-items {
+      position: absolute;
+      background-color: #FFFFFF;
+      top: 100%;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      border-radius: 5px;
+    }
+
+    /*hide the items when the select box is closed:*/
+    .select-hide {
+      display: none;
+    }
+
+    .select-items div:hover, .same-as-selected {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+		.control .btn {
+			color: #fff;
+			text-transform: uppercase;
+			background: gold;
+			opacity: .9;
+			transition: opacity .3s ease;
+		}
+
+		.btn:focus {
+			opacity: 1;
+		}
+
+		p {
+			text-align: center;
+		}
+
+		a {
+			text-decoration: none;
+			color: #000;
+			opacity: .7;
+		}
+
+		a:hover {
+			opacity: 1;
+		}
+	</style>
+</head>
+
+<body>
+	<section>
+		<div class="form-container">
+			<div class="page1_class1" id="page1_id1">
+				<br></br>
+        <h1><img src="https://drive.google.com/uc?export=download&id=1GFEeN1RaKnCqBbCj-5aDQDvUa_CtynNr" width="150"height="80"></h1>
+          
+
+        <h2>ระบบลงทะเบียนเข้างาน/เลิกงานของ บบย.</h2>
+
+				<div class="control">
+					<label for="employeeid">กรุณากรอกรหัสพนักงาน:</label>
+					<input type="text" id="employeeid" >
+          
+          <label for="username">ชื่อ สกุล:</label>
+          <input type="text"  id="username">
+         
+        </div>
+        <div class="custom-select">
+          <label for="statusregis">กรุณาเลือกช่วงการลงทะเบียน:</label><br><br>
+          <select name="statusregis" id="statusregis">
+            <option value="0">--ช่วงการลงทะเบียน--</option>
+            <option value="เข้างาน">เข้างาน</option>
+            <option value="ออกจากงาน">ออกจากงาน</option>
+          </select>
+        </div>
+        <br>
+        <div class="control">
+          <label for="remark">หมายเหตุ (ถ้ามี)</label>
+          <input type="text" id="remark">
+        </div>
+			<br>
+				<div class="control">
+							<input type="submit" id="btn" class="btn" value="Login"onclick="LoginUser()">
+							<span id="errorMessage" style="color: red" ></span>
+				</div>
+
+			</div>
+    </div>
+	</section>
+
+  <script>
+        getLocation()
+        let lat, lon
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    lat = position.coords.latitude
+                    lon = position.coords.longitude
+                });
+            }
+        }
+  </script>
+
+  <script>
+		function LoginUser()
+    {
+      var employeeid = document.getElementById("employeeid").value
+      var chk1 = document.getElementById("statusregis").value
+      if(chk1=='0')
+      {
+        document.getElementById("errorMessage").innerHTML =  "กรุณาเลือกช่วงการลงทะเบียน!"; 
+      }
+   else{
+      google.script.run.withSuccessHandler(function(output) 
+      {
+        if(output == 'TRUE')
+        {
+          //document.getElementById("errorMessage").innerHTML = "คุณลงทะเบียนเข้างาน/เลิกงานเรียบร้อยแล้ว ระบบจะแจ้งการลงทะเบียนทาง Line ภายใน 2 นาที"; 
+          //document.getElementById("btn").addEventListener("click",saveData)
+            //event.preventDefault()
+            var data = {}
+            data.employeeid = document.getElementById("employeeid").value
+            data.username = document.getElementById("username").value
+            data.statusregis = document.getElementById("statusregis").value
+            data.remark = document.getElementById("remark").value
+            data.lat = lat
+            data.lon = lon
+            google.script.run.withSuccessHandler(saveSuccess).userClick(data)
+            document.getElementById("mainform").reset()
+
+            function saveSuccess(result) {
+              document.getElementById("errorMessage").innerHTML = "คุณลงทะเบียนเข้างาน/เลิกงานเรียบร้อยแล้ว ระบบจะแจ้งการลงทะเบียนทาง Line ภายใน 2 นาที"; 
+              if (result) {
+                sweetAlert({
+                    text: "บันทึกข้อมูลเรียบร้อยแล้ว",
+                    icon: "success",
+                    timer: 5000
+                })
+              }
+           } 
+          //document.getElementById("errorMessage").innerHTML = "คุณลงทะเบียนเข้างาน/เลิกงานเรียบร้อยแล้ว ระบบจะแจ้งการลงทะเบียนทาง Line ภายใน 2 นาที"; 
+        }
+        else if(output == 'FALSE')
+        {
+          document.getElementById("errorMessage").innerHTML =  "คุณกรอกรหัสพนักงานไม่ถูกต้อง!";     
+        }    
+      }).checkLogin(employeeid);
+    }
+    }
+  </script>
+
+  <script>
+var x, i, j, l, ll, selElmnt, a, b, c;
+/*look for any elements with the class "custom-select":*/
+x = document.getElementsByClassName("custom-select");
+l = x.length;
+for (i = 0; i < l; i++) {
+  selElmnt = x[i].getElementsByTagName("select")[0];
+  ll = selElmnt.length;
+  /*for each element, create a new DIV that will act as the selected item:*/
+  a = document.createElement("DIV");
+  a.setAttribute("class", "select-selected");
+  a.innerHTML = selElmnt.options[selElmnt.selectedIndex].innerHTML;
+  x[i].appendChild(a);
+  /*for each element, create a new DIV that will contain the option list:*/
+  b = document.createElement("DIV");
+  b.setAttribute("class", "select-items select-hide");
+  for (j = 1; j < ll; j++) {
+    /*for each option in the original select element,
+    create a new DIV that will act as an option item:*/
+    c = document.createElement("DIV");
+    c.innerHTML = selElmnt.options[j].innerHTML;
+    c.addEventListener("click", function(e) {
+        /*when an item is clicked, update the original select box,
+        and the selected item:*/
+        var y, i, k, s, h, sl, yl;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        sl = s.length;
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < sl; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("same-as-selected");
+            yl = y.length;
+            for (k = 0; k < yl; k++) {
+              y[k].removeAttribute("class");
+            }
+            this.setAttribute("class", "same-as-selected");
+            break;
+          }
+        }
+        h.click();
+    });
+    b.appendChild(c);
+  }
+  x[i].appendChild(b);
+  a.addEventListener("click", function(e) {
+      /*when the select box is clicked, close any other select boxes,
+      and open/close the current select box:*/
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("select-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+}
+function closeAllSelect(elmnt) {
+  /*a function that will close all select boxes in the document,
+  except the current select box:*/
+  var x, y, i, xl, yl, arrNo = [];
+  x = document.getElementsByClassName("select-items");
+  y = document.getElementsByClassName("select-selected");
+  xl = x.length;
+  yl = y.length;
+  for (i = 0; i < yl; i++) {
+    if (elmnt == y[i]) {
+      arrNo.push(i)
+    } else {
+      y[i].classList.remove("select-arrow-active");
+    }
+  }
+  for (i = 0; i < xl; i++) {
+    if (arrNo.indexOf(i)) {
+      x[i].classList.add("select-hide");
+    }
+  }
+}
+/*if the user clicks anywhere outside the select box,
+then close all select boxes:*/
+document.addEventListener("click", closeAllSelect);
+</script>
+</body>
+
+</html>
