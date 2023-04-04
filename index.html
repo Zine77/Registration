@@ -171,8 +171,8 @@
 					<label for="employeeid">กรุณากรอกรหัสพนักงาน:</label>
 					<input type="text" id="employeeid" >
           
-          <label for="username">ชื่อ สกุล:</label>
-          <input type="text"  id="username">
+         <!--<label for="username">ชื่อ สกุล:</label>
+          <input type="text"  id="username">-->
          
         </div>
         <div class="custom-select">
@@ -223,14 +223,14 @@
    else{
       google.script.run.withSuccessHandler(function(output) 
       {
-        if(output == 'TRUE')
+        if(output != 'FALSE')
         {
           //document.getElementById("errorMessage").innerHTML = "คุณลงทะเบียนเข้างาน/เลิกงานเรียบร้อยแล้ว ระบบจะแจ้งการลงทะเบียนทาง Line ภายใน 2 นาที"; 
           //document.getElementById("btn").addEventListener("click",saveData)
             //event.preventDefault()
             var data = {}
             data.employeeid = document.getElementById("employeeid").value
-            data.username = document.getElementById("username").value
+            data.username = output
             data.statusregis = document.getElementById("statusregis").value
             data.remark = document.getElementById("remark").value
             data.lat = lat
