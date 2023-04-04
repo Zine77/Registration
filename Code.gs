@@ -14,7 +14,8 @@ function checkLogin(employeeid) {
   {
    if(webAppSheet.getRange(i, 1).getDisplayValue().toUpperCase() == employeeid.toUpperCase())
    {
-     found_record = 'TRUE';
+     found_record = webAppSheet.getRange(i,2).getDisplayValue();
+     //found_record = 'TRUE';
    }    
   }
   if(found_record == '')
