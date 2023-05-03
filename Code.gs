@@ -9,7 +9,7 @@ function include(filename) {
 }
 
 function checkLogin(employeeid) {
-  var url = 'https://docs.google.com/spreadsheets/d/190lb4RKqA8TJrOWQA6_IIuTJ0PAw9U3NvPyAkdvVeco/edit#gid=0';
+  var url = 'GOOGLESHEETURL';
   var ss= SpreadsheetApp.openByUrl(url);
   var webAppSheet = ss.getSheetByName("Employee");
   var getLastRow =  webAppSheet.getLastRow();
@@ -30,7 +30,7 @@ function checkLogin(employeeid) {
 }
 
 function userClick(data) {
-  let ss = SpreadsheetApp.openById('190lb4RKqA8TJrOWQA6_IIuTJ0PAw9U3NvPyAkdvVeco');
+  let ss = SpreadsheetApp.openById('GOOGLESHEETID');
   let sheet = ss.getSheets()[0];
   let response = Maps.newGeocoder().reverseGeocode(data.lat, data.lon);
   let geoAddress = response.results[0].formatted_address;
@@ -79,7 +79,7 @@ function userClick(data) {
 }
 
 function sendHttpPostImage(text_data1, mapBlob){
-  var token = "SU2ezZ0dBblINEmoBjKNHZpY4ll3SFpg7b3l75mTVtR";
+  var token = "TOKEN FROM LINE";
   var formData = {
   'message' : '\n'+text_data1,
   'imageFile': mapBlob
